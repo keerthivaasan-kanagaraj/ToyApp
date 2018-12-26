@@ -21,6 +21,4 @@ ActiveRecord::Schema.define(version: 20181225134704) do
     t.string   "password_digest", limit: 255
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
-
 end
