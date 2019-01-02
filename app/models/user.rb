@@ -8,6 +8,7 @@ class User < ActiveRecord::Base
     validates :email, presence: true, length: { maximum: 255 },format: {with: VALID_EMAIL_REGEX},uniqueness: true 
     has_secure_password
     validates :password, presence: true, length: { minimum: 6 }
+    has_many :microposts, dependent: :destroy
 
     def User.digest(string)
         cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST : BCrypt::Engine.cost
@@ -53,6 +54,9 @@ class User < ActiveRecord::Base
   end
   def password_reset_expired?
     reset_sent_at < 2.hours.ago
+  end
+  def feed
+    Micropost.where("user_id = ?", id)
   end
     private
     def downcase_email

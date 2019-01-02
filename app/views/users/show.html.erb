@@ -1,4 +1,4 @@
-<%if @user%>
+<%#if @user%>
 <% provide(:title, @user.name) %>
 <div class="row">
   <aside class="col-md-4">
@@ -9,7 +9,16 @@
       </h1>
     </section>
   </aside>
+   <div class="col-md-8">
+    <% if @user.microposts.any? %>
+      <h3>Microposts (<%= @user.microposts.count %>)</h3>
+      <ol class="microposts">
+        <%= render @microposts %>
+      </ol>
+      <%= will_paginate @microposts %>
+    <% end %>
+  </div>
 </div>
-<%else
+<%#else
 concat "User Not Found"%>
-<%end%>
+<%#end%>

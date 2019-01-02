@@ -8,11 +8,12 @@ class UsersController < ApplicationController
     @user = User.new
   end
   def show
-      begin
+      # begin
       @user=User.find(params[:id])
-      rescue
-        @user=nil
-      end
+      @microposts = @user.microposts.paginate(page: params[:page])
+      # rescue
+      #   @user=nil
+      # end
   end
   def create
     @user = User.new(user_params)   
